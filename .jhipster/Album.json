@@ -1,0 +1,53 @@
+{
+    "name": "Album",
+    "fields": [
+        {
+            "fieldName": "title",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "year",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "countSongs",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "songs",
+            "otherEntityName": "song",
+            "otherEntityRelationshipName": "album"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "groups",
+            "otherEntityName": "group0",
+            "otherEntityRelationshipName": "album"
+        },
+        {
+            "relationshipType": "many-to-many",
+            "relationshipName": "artists",
+            "otherEntityName": "artist",
+            "ownerSide": false,
+            "otherEntityRelationshipName": "albums"
+        }
+    ],
+    "changelogDate": "20181210035656",
+    "entityTableName": "album",
+    "dto": "no",
+    "pagination": "pagination",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

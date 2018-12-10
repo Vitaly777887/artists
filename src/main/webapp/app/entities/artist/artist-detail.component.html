@@ -1,0 +1,65 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="artist">
+            <h2><span>Artist</span> {{artist.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Nickname</span></dt>
+                <dd>
+                    <span>{{artist.nickname}}</span>
+                </dd>
+                <dt><span>Name</span></dt>
+                <dd>
+                    <span>{{artist.name}}</span>
+                </dd>
+                <dt><span>Surname</span></dt>
+                <dd>
+                    <span>{{artist.surname}}</span>
+                </dd>
+                <dt><span>Birthday</span></dt>
+                <dd>
+                    <span>{{artist.birthday}}</span>
+                </dd>
+                <dt><span>Sex</span></dt>
+                <dd>
+                    <span>{{artist.sex}}</span>
+                </dd>
+                <dt><span>Site Url</span></dt>
+                <dd>
+                    <span>{{artist.siteUrl}}</span>
+                </dd>
+                <dt><span>Albums</span></dt>
+                <dd>
+                    <span *ngFor="let albums of artist.albums; let last = last">
+                        <a [routerLink]="['/album', albums?.id, 'view' ]">{{albums.title}}</a>{{last ? '' : ', '}}
+                    </span>
+                </dd>
+                <dt><span>Genre</span></dt>
+                <dd>
+                    <div *ngIf="artist.genre">
+                        <a [routerLink]="['/genre', artist.genre?.id, 'view']">{{artist.genre?.name}}</a>
+                    </div>
+                </dd>
+                <dt><span>Country</span></dt>
+                <dd>
+                    <div *ngIf="artist.country">
+                        <a [routerLink]="['/country', artist.country?.id, 'view']">{{artist.country?.name}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/artist', artist.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

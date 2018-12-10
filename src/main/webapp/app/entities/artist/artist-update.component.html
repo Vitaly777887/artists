@@ -1,0 +1,99 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-artist-heading">Create or edit a Artist</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!artist.id">
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="artist.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_nickname">Nickname</label>
+                    <input type="text" class="form-control" name="nickname" id="field_nickname"
+                        [(ngModel)]="artist.nickname" required/>
+                    <div [hidden]="!(editForm.controls.nickname?.dirty && editForm.controls.nickname?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.nickname?.errors?.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_name">Name</label>
+                    <input type="text" class="form-control" name="name" id="field_name"
+                        [(ngModel)]="artist.name" required/>
+                    <div [hidden]="!(editForm.controls.name?.dirty && editForm.controls.name?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.name?.errors?.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_surname">Surname</label>
+                    <input type="text" class="form-control" name="surname" id="field_surname"
+                        [(ngModel)]="artist.surname" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_birthday">Birthday</label>
+                    <div class="input-group">
+                        <input id="field_birthday" type="text" class="form-control" name="birthday" ngbDatepicker  #birthdayDp="ngbDatepicker" [(ngModel)]="artist.birthday"
+                        />
+                        <span class="input-group-append">
+                            <button type="button" class="btn btn-secondary" (click)="birthdayDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_sex">Sex</label>
+                    <select class="form-control" name="sex" [(ngModel)]="artist.sex" id="field_sex"  required>
+                        <option value="MAN">MAN</option>
+                        <option value="WOMAN">WOMAN</option>
+                    </select>
+                    <div [hidden]="!(editForm.controls.sex?.dirty && editForm.controls.sex?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.sex?.errors?.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_siteUrl">Site Url</label>
+                    <input type="text" class="form-control" name="siteUrl" id="field_siteUrl"
+                        [(ngModel)]="artist.siteUrl" />
+                </div>
+
+                <div class="form-group">
+                    <label for="field_albums">Albums</label>
+                    <select class="form-control" id="field_albums" multiple name="albums" [(ngModel)]="artist.albums">
+                        <option [ngValue]="getSelected(artist.albums, albumOption)" *ngFor="let albumOption of albums; trackBy: trackAlbumById">{{albumOption.title}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_genre">Genre</label>
+                    <select class="form-control" id="field_genre" name="genre" [(ngModel)]="artist.genre" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="genreOption.id === artist.genre?.id ? artist.genre : genreOption" *ngFor="let genreOption of genres; trackBy: trackGenreById">{{genreOption.name}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_country">Country</label>
+                    <select class="form-control" id="field_country" name="country" [(ngModel)]="artist.country" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="countryOption.id === artist.country?.id ? artist.country : countryOption" *ngFor="let countryOption of countries; trackBy: trackCountryById">{{countryOption.name}}</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
