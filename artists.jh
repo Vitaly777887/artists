@@ -1,0 +1,52 @@
+
+entity Genre {
+name String
+}
+
+entity Group {
+name String required
+}
+
+entity Country {
+name String required
+}
+
+entity Album {
+title String required,
+year Integer,
+countSongs Integer required
+}
+
+entity Song {
+title String required,
+duration Float
+}
+
+entity Artist {
+name String required,
+surname String,
+birthday LocalDate,
+sex Sex required,
+siteUrl String
+}
+
+enum Sex {
+MAN,
+WOMAN
+}
+
+relationship OneToMany {
+Genre{artists} to Artist{genre(name)},
+Country{artists} to Artist{country(name)},
+Album{songs} to Song{album(name)},
+Album{groups} to Group{album(album)}
+}
+
+relationship ManyToMany {
+Artist{albums} to Album{artists}
+}
+
+
+// Set pagination options
+paginate * with pagination
+
